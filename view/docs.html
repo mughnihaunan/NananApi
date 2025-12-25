@@ -512,6 +512,103 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- YouTube MP4 -->
+                <div class="api-subsection">
+                    <h3 class="api-subsection-title">YouTube Video (MP4)</h3>
+
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/downloader/youtube-mp4</span>
+                    </div>
+
+                    <div class="params">
+                        <h4 class="params-title">Parameters</h4>
+                        <div class="param">
+                            <div class="param-header">
+                                <span class="param-name">url</span>
+                                <span class="param-required">required</span>
+                            </div>
+                            <p class="param-desc">YouTube video URL (supports youtube.com and youtu.be)</p>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Request</h4>
+                        <div class="code-block">
+                            <pre><code>GET /api/downloader/youtube-mp4?url=https://youtube.com/watch?v=xxxxx</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Response</h4>
+                        <div class="code-block">
+                            <pre><code>{
+  "status": true,
+  "creator": "Nanan",
+  "result": {
+    "title": "Video Title",
+    "result": "https://tinyurl.com/...",
+    "quality": "720p",
+    "size": "25.3 MB",
+    "thumb": "https://i.ytimg.com/...",
+    "views": "1.2M",
+    "channel": "Channel Name",
+    "uploadDate": "2024-01-01",
+    "desc": "Video description..."
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- YouTube MP3 -->
+                <div class="api-subsection">
+                    <h3 class="api-subsection-title">YouTube Audio (MP3)</h3>
+
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/downloader/youtube-mp3</span>
+                    </div>
+
+                    <div class="params">
+                        <h4 class="params-title">Parameters</h4>
+                        <div class="param">
+                            <div class="param-header">
+                                <span class="param-name">url</span>
+                                <span class="param-required">required</span>
+                            </div>
+                            <p class="param-desc">YouTube video URL (supports youtube.com and youtu.be)</p>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Request</h4>
+                        <div class="code-block">
+                            <pre><code>GET /api/downloader/youtube-mp3?url=https://youtube.com/watch?v=xxxxx</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Response</h4>
+                        <div class="code-block">
+                            <pre><code>{
+  "status": true,
+  "creator": "Nanan",
+  "result": {
+    "title": "Video Title",
+    "result": "https://tinyurl.com/...",
+    "size": "3.5 MB",
+    "thumb": "https://i.ytimg.com/...",
+    "views": "1.2M",
+    "channel": "Channel Name",
+    "uploadDate": "2024-01-01",
+    "desc": "Video description..."
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- Search Section -->

@@ -458,4 +458,90 @@ router.get('/downloader/myinstants', async (req, res, next) => {
 		})
 })
 
+// YouTube MP4 Downloader
+router.get('/downloader/youtube-mp4', async (req, res, next) => {
+	var url = req.query.url
+	if (!url) return res.json({
+		status: false,
+		creator: `${creator}`,
+		message: "[!] enter url parameter!",
+		example: "/api/downloader/youtube-mp4?url=https://youtube.com/watch?v=xxxxx"
+	})
+
+	if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
+		return res.json({
+			status: false,
+			creator: `${creator}`,
+			message: "Invalid YouTube URL"
+		})
+	}
+
+	ytMp4(url).then(data => {
+		if (!data) {
+			return res.json({
+				status: false,
+				creator: `${creator}`,
+				message: "Failed to download video. Video might be private or unavailable."
+			})
+		}
+		res.json({
+			status: true,
+			creator: `${creator}`,
+			result: data
+		})
+	})
+		.catch(e => {
+			console.error('YouTube MP4 Error:', e)
+			res.json({
+				status: false,
+				creator: `${creator}`,
+				message: "Failed to download YouTube video",
+				error: e.message
+			})
+		})
+})
+
+// YouTube MP3 Downloader
+router.get('/downloader/youtube-mp3', async (req, res, next) => {
+	var url = req.query.url
+	if (!url) return res.json({
+		status: false,
+		creator: `${creator}`,
+		message: "[!] enter url parameter!",
+		example: "/api/downloader/youtube-mp3?url=https://youtube.com/watch?v=xxxxx"
+	})
+
+	if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
+		return res.json({
+			status: false,
+			creator: `${creator}`,
+			message: "Invalid YouTube URL"
+		})
+	}
+
+	ytMp3(url).then(data => {
+		if (!data) {
+			return res.json({
+				status: false,
+				creator: `${creator}`,
+				message: "Failed to download audio. Video might be private or unavailable."
+			})
+		}
+		res.json({
+			status: true,
+			creator: `${creator}`,
+			result: data
+		})
+	})
+		.catch(e => {
+			console.error('YouTube MP3 Error:', e)
+			res.json({
+				status: false,
+				creator: `${creator}`,
+				message: "Failed to download YouTube audio",
+				error: e.message
+			})
+		})
+})
+
 module.exports = router
