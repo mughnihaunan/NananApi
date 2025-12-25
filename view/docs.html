@@ -358,11 +358,8 @@
         <aside class="docs-sidebar">
             <h3 class="sidebar-title">Quick Navigation</h3>
             <ul class="sidebar-nav">
-                <li><a href="#ai" class="sidebar-link">🤖 AI Assistant</a></li>
                 <li><a href="#downloader" class="sidebar-link">📥 Downloader</a></li>
                 <li><a href="#search" class="sidebar-link">🔍 Search</a></li>
-                <li><a href="#random" class="sidebar-link">🎲 Random</a></li>
-                <li><a href="#tts" class="sidebar-link">🗣️ Text-to-Speech</a></li>
             </ul>
         </aside>
 
@@ -374,49 +371,7 @@
                 <p class="docs-description">Complete reference for all available endpoints and their usage</p>
             </div>
 
-            <!-- AI Section -->
-            <section id="ai" class="api-section">
-                <h2 class="api-section-title">🤖 AI Assistant</h2>
-                <p class="api-section-desc">Interact with AI-powered assistant for various tasks and questions</p>
 
-                <div class="api-subsection">
-                    <h3 class="api-subsection-title">Ryzen AI</h3>
-
-                    <div class="endpoint">
-                        <span class="method">GET</span>
-                        <span class="path">/api/ai/ryzenai</span>
-                    </div>
-
-                    <div class="params">
-                        <h4 class="params-title">Parameters</h4>
-                        <div class="param">
-                            <div class="param-header">
-                                <span class="param-name">text</span>
-                                <span class="param-required">required</span>
-                            </div>
-                            <p class="param-desc">Your question or prompt for the AI assistant</p>
-                        </div>
-                    </div>
-
-                    <div class="example">
-                        <h4 class="example-title">Example Request</h4>
-                        <div class="code-block">
-                            <pre><code>GET /api/ai/ryzenai?text=Hello, who are you?</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="example">
-                        <h4 class="example-title">Example Response</h4>
-                        <div class="code-block">
-                            <pre><code>{
-  "status": true,
-  "query": "Hello, who are you?",
-  "response": "I am Zexxa, your AI assistant..."
-}</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <!-- Downloader Section -->
             <section id="downloader" class="api-section">
@@ -661,121 +616,9 @@
                 </div>
             </section>
 
-            <!-- Random Section -->
-            <section id="random" class="api-section">
-                <h2 class="api-section-title">🎲 Random Images</h2>
-                <p class="api-section-desc">Get random images from various categories</p>
 
-                <div class="params">
-                    <h4 class="params-title">Available Endpoints</h4>
 
-                    <div class="param">
-                        <div class="param-header">
-                            <span class="param-name">/api/random/animestick</span>
-                        </div>
-                        <p class="param-desc">Random anime sticker images</p>
-                    </div>
 
-                    <div class="param">
-                        <div class="param-header">
-                            <span class="param-name">/api/random/animegif</span>
-                        </div>
-                        <p class="param-desc">Random anime GIF animations</p>
-                    </div>
-
-                    <div class="param">
-                        <div class="param-header">
-                            <span class="param-name">/api/random/kawanspongebob</span>
-                        </div>
-                        <p class="param-desc">Random SpongeBob friends images</p>
-                    </div>
-
-                    <div class="param">
-                        <div class="param-header">
-                            <span class="param-name">/api/random/paimon</span>
-                        </div>
-                        <p class="param-desc">Random Paimon (Genshin Impact) images</p>
-                    </div>
-
-                    <div class="param">
-                        <div class="param-header">
-                            <span class="param-name">/api/random/spongebob</span>
-                        </div>
-                        <p class="param-desc">Random SpongeBob images</p>
-                    </div>
-                </div>
-
-                <div class="example">
-                    <h4 class="example-title">Example Request</h4>
-                    <div class="code-block">
-                        <pre><code>GET /api/random/animestick</code></pre>
-                    </div>
-                </div>
-
-                <div class="example">
-                    <h4 class="example-title">Example Response</h4>
-                    <div class="code-block">
-                        <pre><code>{
-  "status": true,
-  "image": "https://example.com/anime-sticker.png"
-}</code></pre>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Text-to-Speech Section -->
-            <section id="tts" class="api-section">
-                <h2 class="api-section-title">🗣️ Text-to-Speech</h2>
-                <p class="api-section-desc">Convert text to speech audio in multiple languages</p>
-
-                <div class="api-subsection">
-                    <h3 class="api-subsection-title">Sound of Text</h3>
-
-                    <div class="endpoint">
-                        <span class="method">GET</span>
-                        <span class="path">/api/soundoftext</span>
-                    </div>
-
-                    <div class="params">
-                        <h4 class="params-title">Parameters</h4>
-
-                        <div class="param">
-                            <div class="param-header">
-                                <span class="param-name">text</span>
-                                <span class="param-required">required</span>
-                            </div>
-                            <p class="param-desc">Text to convert to speech</p>
-                        </div>
-
-                        <div class="param">
-                            <div class="param-header">
-                                <span class="param-name">lang</span>
-                                <span class="param-optional">optional</span>
-                            </div>
-                            <p class="param-desc">Language code (e.g., "en-US", "id-ID", "ja-JP"). Default: "en-US"</p>
-                        </div>
-                    </div>
-
-                    <div class="example">
-                        <h4 class="example-title">Example Request</h4>
-                        <div class="code-block">
-                            <pre><code>GET /api/soundoftext?text=Hello World&lang=en-US</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="example">
-                        <h4 class="example-title">Example Response</h4>
-                        <div class="code-block">
-                            <pre><code>{
-  "status": true,
-  "text": "Hello World",
-  "lang": "en-US",
-  "audio_url": "https://example.com/audio.mp3"
-}</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </main>
     </div>
 

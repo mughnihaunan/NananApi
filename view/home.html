@@ -228,9 +228,9 @@
               <p>Lightning-fast API responses</p>
           </div>
           <div class="stat-card">
-            <div class="stat-number">10+</div>
+            <div class="stat-number">6+</div>
             <h3>Endpoints</h3>
-            <p>Diverse API services</p>
+            <p>Quality API services</p>
           </div>
           <div class="stat-card">
             <div class="stat-number">Free</div>
@@ -249,31 +249,15 @@
         <p class="hero-subtitle">Everything you need to build amazing applications</p>
       </div>
 
-      <div class="grid grid-cols-3 gap-8">
-        <!-- AI Assistant -->
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i data-lucide="brain"></i>
-          </div>
-          <h3 class="mb-4">AI Assistant</h3>
-          <p class="mb-6 text-sm">Intelligent AI-powered responses and assistance for your applications.</p>
-
-          <div class="api-endpoint">
-            <div>
-              <span class="method-badge">GET</span>
-              <code>/api/ai/ryzenai</code>
-            </div>
-            <button class="btn btn-sm btn-secondary" onclick="tryEndpoint('/api/ai/ryzenai?text=hello')">Try</button>
-          </div>
-        </div>
-
+      <div class="grid grid-cols-2 gap-8">
         <!-- Media Downloads -->
         <div class="feature-card">
           <div class="feature-icon">
             <i data-lucide="download"></i>
           </div>
           <h3 class="mb-4">Media Downloads</h3>
-          <p class="mb-6 text-sm">Download audio, video, and other media content from various sources.</p>
+          <p class="mb-6 text-sm">Download audio, video, and other media content from various sources including YouTube,
+            Blue Archive, and MyInstants.</p>
 
           <div class="api-endpoint">
             <div>
@@ -284,30 +268,14 @@
           </div>
         </div>
 
-        <!-- Random Content -->
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i data-lucide="shuffle"></i>
-          </div>
-          <h3 class="mb-4">Random Content</h3>
-          <p class="mb-6 text-sm">Get random images, quotes, and other content for your applications.</p>
-
-          <div class="api-endpoint">
-            <div>
-              <span class="method-badge">GET</span>
-              <code>/api/random/*</code>
-            </div>
-            <button class="btn btn-sm btn-secondary" onclick="showEndpoints('random')">View</button>
-          </div>
-        </div>
-
         <!-- Search Services -->
         <div class="feature-card">
           <div class="feature-icon">
             <i data-lucide="search"></i>
           </div>
           <h3 class="mb-4">Search Services</h3>
-          <p class="mb-6 text-sm">Search across multiple platforms and databases with unified API.</p>
+          <p class="mb-6 text-sm">Search for images and content across multiple platforms including Pinterest with
+            unified API.</p>
 
           <div class="api-endpoint">
             <div>
@@ -315,37 +283,6 @@
               <code>/api/search/*</code>
             </div>
             <button class="btn btn-sm btn-secondary" onclick="showEndpoints('search')">View</button>
-          </div>
-        </div>
-
-        <!-- Text to Speech -->
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i data-lucide="volume-2"></i>
-          </div>
-          <h3 class="mb-4">Text to Speech</h3>
-          <p class="mb-6 text-sm">Convert text to natural-sounding speech in multiple languages.</p>
-
-          <div class="api-endpoint">
-            <div>
-              <span class="method-badge">GET</span>
-              <code>/api/soundoftext</code>
-            </div>
-            <button class="btn btn-sm btn-secondary"
-              onclick="tryEndpoint('/api/soundoftext?text=hello&lang=en')">Try</button>
-          </div>
-        </div>
-
-        <!-- More Coming Soon -->
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i data-lucide="plus"></i>
-          </div>
-          <h3 class="mb-4">More Coming</h3>
-          <p class="mb-6 text-sm">We're constantly adding new endpoints and features to serve your needs.</p>
-
-          <div class="mt-auto">
-            <a href="/docs" class="btn btn-primary">Request Feature</a>
           </div>
         </div>
       </div>
