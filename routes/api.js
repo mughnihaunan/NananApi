@@ -25,7 +25,7 @@ const router = express.Router()
 const ryzen = require("../lib/listdl")
 const apidl = require("../lib/api/apidl")
 var error = __path + '/view/error.html'
-let creator = 'Shirokami Ryzen'
+let creator = 'Nanan'
 loghandler = {
 	error: {
 		status: false,
@@ -389,9 +389,9 @@ router.get('/random/malaysia', async (req, res) => {
 // Blue Archive Voice Downloader
 router.get('/downloader/bluearchive-voice', async (req, res, next) => {
 	var character = req.query.character
-	if (!character) return res.json({ 
-		status: false, 
-		creator: `${creator}`, 
+	if (!character) return res.json({
+		status: false,
+		creator: `${creator}`,
 		message: "[!] enter character parameter!",
 		example: "/api/downloader/bluearchive-voice?character=Ako"
 	})
@@ -411,23 +411,23 @@ router.get('/downloader/bluearchive-voice', async (req, res, next) => {
 			result: data
 		})
 	})
-	.catch(e => {
-		console.error('Blue Archive Voice Error:', e)
-		res.json({
-			status: false,
-			creator: `${creator}`,
-			message: "Failed to fetch Blue Archive voice",
-			error: e.message
+		.catch(e => {
+			console.error('Blue Archive Voice Error:', e)
+			res.json({
+				status: false,
+				creator: `${creator}`,
+				message: "Failed to fetch Blue Archive voice",
+				error: e.message
+			})
 		})
-	})
 })
 
 // MyInstants Audio Search & Download
 router.get('/downloader/myinstants', async (req, res, next) => {
 	var query = req.query.query
-	if (!query) return res.json({ 
-		status: false, 
-		creator: `${creator}`, 
+	if (!query) return res.json({
+		status: false,
+		creator: `${creator}`,
 		message: "[!] enter query parameter!",
 		example: "/api/downloader/myinstants?query=bruh"
 	})
@@ -447,15 +447,15 @@ router.get('/downloader/myinstants', async (req, res, next) => {
 			result: data
 		})
 	})
-	.catch(e => {
-		console.error('MyInstants Error:', e)
-		res.json({
-			status: false,
-			creator: `${creator}`,
-			message: "Failed to fetch audio from MyInstants",
-			error: e.message
+		.catch(e => {
+			console.error('MyInstants Error:', e)
+			res.json({
+				status: false,
+				creator: `${creator}`,
+				message: "Failed to fetch audio from MyInstants",
+				error: e.message
+			})
 		})
-	})
 })
 
 module.exports = router

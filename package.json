@@ -14,7 +14,7 @@
   "keywords": [
     "Express"
   ],
-  "author": "Shirokami Ryzen",
+  "author": "Nanan",
   "license": "ISC",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
