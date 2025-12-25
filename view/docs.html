@@ -1,505 +1,746 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<!-- Basic Page Info -->
-	<meta charset="utf-8">
-	<title>Ryzen API | Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nanan API - Complete API Documentation">
+    <meta name="author" content="Nanan Team">
 
-	<!-- Site favicon -->
-	<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
 
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>API Documentation - Nanan API</title>
 
-	<!-- Google Font -->
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
-	<link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
-<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
-	<link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
+    <!-- Modern Theme CSS -->
+    <link rel="stylesheet" href="/css/modern-theme.css">
 
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
+    <style>
+        /* Documentation specific styles */
+        .docs-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--space-8);
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-4);
+        }
 
-		gtag('config', 'UA-119386393-1');
-	</script>
+        /* Sidebar */
+        .docs-sidebar {
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+        }
+
+        .docs-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .docs-sidebar::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+            border-radius: var(--radius);
+        }
+
+        .docs-sidebar::-webkit-scrollbar-thumb {
+            background: var(--dark-border);
+            border-radius: var(--radius);
+        }
+
+        .docs-sidebar::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .sidebar-title {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--dark-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-4);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: var(--space-2);
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: var(--space-2) var(--space-3);
+            color: var(--dark-text-muted);
+            border-radius: var(--radius);
+            font-size: var(--text-sm);
+            transition: all var(--transition);
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: var(--dark-card);
+            color: var(--primary-light);
+            transform: translateX(4px);
+        }
+
+        /* Main Content */
+        .docs-content {
+            min-width: 0;
+        }
+
+        .docs-header {
+            margin-bottom: var(--space-12);
+        }
+
+        .docs-title {
+            font-size: var(--text-5xl);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-4);
+        }
+
+        .docs-description {
+            font-size: var(--text-xl);
+            color: var(--dark-text-muted);
+        }
+
+        /* API Section */
+        .api-section {
+            background: var(--dark-surface);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-8);
+            margin-bottom: var(--space-8);
+            scroll-margin-top: 100px;
+        }
+
+        .api-section-title {
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: var(--space-2);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .api-section-desc {
+            color: var(--dark-text-muted);
+            margin-bottom: var(--space-6);
+        }
+
+        .api-subsection {
+            margin-top: var(--space-8);
+            padding-top: var(--space-6);
+            border-top: 1px solid var(--dark-border);
+        }
+
+        .api-subsection:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .api-subsection-title {
+            font-size: var(--text-xl);
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-bottom: var(--space-4);
+        }
+
+        /* Endpoint */
+        .endpoint {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius);
+            padding: var(--space-4);
+            margin: var(--space-4) 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+        }
+
+        .method {
+            background: var(--success);
+            color: var(--white);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+        }
+
+        .path {
+            font-family: var(--font-mono);
+            color: var(--primary-light);
+            font-size: var(--text-sm);
+            flex: 1;
+            word-break: break-all;
+        }
+
+        /* Parameters */
+        .params {
+            margin: var(--space-6) 0;
+        }
+
+        .params-title {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: var(--space-4);
+        }
+
+        .param {
+            background: rgba(99, 102, 241, 0.05);
+            border-left: 3px solid var(--primary);
+            padding: var(--space-4);
+            margin-bottom: var(--space-3);
+            border-radius: var(--radius-sm);
+        }
+
+        .param-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-2);
+            flex-wrap: wrap;
+        }
+
+        .param-name {
+            font-family: var(--font-mono);
+            color: var(--primary-light);
+            font-weight: 600;
+            font-size: var(--text-sm);
+        }
+
+        .param-required {
+            background: var(--warning);
+            color: var(--white);
+            padding: 0.125rem var(--space-2);
+            border-radius: var(--radius-sm);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .param-optional {
+            background: var(--dark-card);
+            color: var(--dark-text-muted);
+            padding: 0.125rem var(--space-2);
+            border-radius: var(--radius-sm);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .param-desc {
+            color: var(--dark-text-muted);
+            font-size: var(--text-sm);
+        }
+
+        /* Example */
+        .example {
+            margin: var(--space-6) 0;
+        }
+
+        .example-title {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-3);
+        }
+
+        .code-block {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--radius);
+            padding: var(--space-4);
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            background: transparent;
+            border: none;
+            padding: 0;
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+            color: #e6edf3;
+        }
+
+        .code-block code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .docs-container {
+                grid-template-columns: 1fr;
+            }
+
+            .docs-sidebar {
+                position: static;
+                height: auto;
+                margin-bottom: var(--space-6);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .docs-title {
+                font-size: var(--text-4xl);
+            }
+
+            .api-section {
+                padding: var(--space-6);
+            }
+
+            .endpoint {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar-nav {
+                display: none;
+            }
+        }
+
+        .mb-16 {
+            margin-bottom: var(--space-16);
+        }
+
+        .mt-auto {
+            margin-top: auto;
+        }
+
+        .text-sm {
+            font-size: var(--text-sm);
+        }
+    </style>
 </head>
+
 <body>
-	<div class="pre-loader">
-		<div class="pre-loader-box">
-			<div class="loader-logo"><img src="assets/images/logo.png" alt=""></div>
-			<div class='loader-progress' id="progress_div">
-				<div class='bar' id='bar1'></div>
-			</div>
-			<div class='percent' id='percent1'>0%</div>
-			<div class="loading-text">
-				Loading...
-			</div>
-		</div>
-	</div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container flex justify-between items-center">
+            <a href="/" class="navbar-brand">⚡ Nanan API</a>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/docs" class="nav-link active">Documentation</a></li>
+                <li><a href="/#about" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </nav>
 
-	<div class="header">
-		<div class="header-left">
-			<div class="menu-icon dw dw-menu"></div>
-		</div>
-		<div class="header-right">
-			<div class="dashboard-setting user-notification">
-				<div class="dropdown">
-					<a class="dropdown-toggle no-arrow" href="javascript:;" data-toggle="right-sidebar">
-						<i class="dw dw-settings2"></i>
-					</a>
-				</div>
-			</div>
-			<!--<div class="user-notification">
-				<div class="dropdown">
-					<a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
-						<i class="icon-copy dw dw-notification"></i>
-						<span class="badge notification-active"></span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<div class="notification-list mx-h-350 customscroll">
-							<ul>
-								<li>
-									<a href="#">
-										<img src="vendors/images/img.jpg" alt="">
-										<h3>John Doe</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="vendors/images/photo1.jpg" alt="">
-										<h3>Lea R. Frith</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="vendors/images/photo2.jpg" alt="">
-										<h3>Erik L. Richards</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="vendors/images/photo3.jpg" alt="">
-										<h3>John Doe</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="vendors/images/photo4.jpg" alt="">
-										<h3>Renee I. Hansen</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="vendors/images/img.jpg" alt="">
-										<h3>Vicki M. Coleman</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			--></div>
-		</div>
+    <!-- Documentation Container -->
+    <div class="docs-container">
+        <!-- Sidebar -->
+        <aside class="docs-sidebar">
+            <h3 class="sidebar-title">Quick Navigation</h3>
+            <ul class="sidebar-nav">
+                <li><a href="#ai" class="sidebar-link">🤖 AI Assistant</a></li>
+                <li><a href="#downloader" class="sidebar-link">📥 Downloader</a></li>
+                <li><a href="#search" class="sidebar-link">🔍 Search</a></li>
+                <li><a href="#random" class="sidebar-link">🎲 Random</a></li>
+                <li><a href="#tts" class="sidebar-link">🗣️ Text-to-Speech</a></li>
+            </ul>
+        </aside>
 
-	<div class="right-sidebar">
-		<div class="sidebar-title">
-			<h3 class="weight-600 font-16 text-blue">
-				Layout Settings
-				<span class="btn-block font-weight-400 font-12">User Interface Settings</span>
-			</h3>
-			<div class="close-sidebar" data-toggle="right-sidebar-close">
-				<i class="icon-copy ion-close-round"></i>
-			</div>
-		</div>
-		<div class="right-sidebar-body customscroll">
-			<div class="right-sidebar-body-content">
-				<h4 class="weight-600 font-18 pb-10">Header Background</h4>
-				<div class="sidebar-btn-group pb-30 mb-10">
-					<a href="javascript:void(0);" class="btn btn-outline-primary header-white active">White</a>
-					<a href="javascript:void(0);" class="btn btn-outline-primary header-dark">Dark</a>
-				</div>
+        <!-- Main Content -->
+        <main class="docs-content">
+            <!-- Header -->
+            <div class="docs-header">
+                <h1 class="docs-title">API Documentation</h1>
+                <p class="docs-description">Complete reference for all available endpoints and their usage</p>
+            </div>
 
-				<h4 class="weight-600 font-18 pb-10">Sidebar Background</h4>
-				<div class="sidebar-btn-group pb-30 mb-10">
-					<a href="javascript:void(0);" class="btn btn-outline-primary sidebar-light active">White</a>
-					<a href="javascript:void(0);" class="btn btn-outline-primary sidebar-dark">Dark</a>
-				</div>
+            <!-- AI Section -->
+            <section id="ai" class="api-section">
+                <h2 class="api-section-title">🤖 AI Assistant</h2>
+                <p class="api-section-desc">Interact with AI-powered assistant for various tasks and questions</p>
 
-				<h4 class="weight-600 font-18 pb-10">Menu Dropdown Icon</h4>
-				<div class="sidebar-radio-group pb-10 mb-10">
-					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="sidebaricon-1" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-1" checked="">
-						<label class="custom-control-label" for="sidebaricon-1"><i class="fa fa-angle-down"></i></label>
-					</div>
-					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="sidebaricon-2" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-2">
-						<label class="custom-control-label" for="sidebaricon-2"><i class="ion-plus-round"></i></label>
-					</div>
-					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="sidebaricon-3" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-3">
-						<label class="custom-control-label" for="sidebaricon-3"><i class="fa fa-angle-double-right"></i></label>
-					</div>
-				</div>
+                <div class="api-subsection">
+                    <h3 class="api-subsection-title">Ryzen AI</h3>
 
-				<h4 class="weight-600 font-18 pb-10">Menu List Icon</h4>
-				<div class="sidebar-radio-group pb-30 mb-10">
-					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="sidebariconlist-1" name="menu-list-icon" class="custom-control-input" value="icon-list-style-1" checked="">
-						<label class="custom-control-label" for="sidebariconlist-1"><i class="ion-minus-round"></i></label>
-					</div>
-					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="sidebariconlist-2" name="menu-list-icon" class="custom-control-input" value="icon-list-style-2">
-						<label class="custom-control-label" for="sidebariconlist-2"><i class="fa fa-circle-o" aria-hidden="true"></i></label>
-					</div>
-					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="sidebariconlist-3" name="menu-list-icon" class="custom-control-input" value="icon-list-style-3">
-						<label class="custom-control-label" for="sidebariconlist-3"><i class="dw dw-check"></i></label>
-					</div>
-					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="sidebariconlist-4" name="menu-list-icon" class="custom-control-input" value="icon-list-style-4" checked="">
-						<label class="custom-control-label" for="sidebariconlist-4"><i class="icon-copy dw dw-next-2"></i></label>
-					</div>
-					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="sidebariconlist-5" name="menu-list-icon" class="custom-control-input" value="icon-list-style-5">
-						<label class="custom-control-label" for="sidebariconlist-5"><i class="dw dw-fast-forward-1"></i></label>
-					</div>
-					<div class="custom-control custom-radio custom-control-inline">
-						<input type="radio" id="sidebariconlist-6" name="menu-list-icon" class="custom-control-input" value="icon-list-style-6">
-						<label class="custom-control-label" for="sidebariconlist-6"><i class="dw dw-next"></i></label>
-					</div>
-				</div>
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/ai/ryzenai</span>
+                    </div>
 
-				<div class="reset-options pt-30 text-center">
-					<button class="btn btn-danger" id="reset-settings">Reset Settings</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                    <div class="params">
+                        <h4 class="params-title">Parameters</h4>
+                        <div class="param">
+                            <div class="param-header">
+                                <span class="param-name">text</span>
+                                <span class="param-required">required</span>
+                            </div>
+                            <p class="param-desc">Your question or prompt for the AI assistant</p>
+                        </div>
+                    </div>
 
-	<div class="left-side-bar">
-		<div class="brand-logo">
-			<a href="#">
-				<img src="assets/images/logo.png" alt="" class="dark-logo">
-				<img src="assets/images/logo.png" alt="" class="light-logo">
-			</a>
-			<div class="close-sidebar" data-toggle="left-sidebar-close">
-				<i class="ion-close-round"></i>
-			</div>
-		</div>
-		<div class="menu-block customscroll">
-			<div class="sidebar-menu">
-				<ul id="accordion-menu">
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="/">Home</a></li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-chip-1"></span><span class="mtext">AI Feature</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="/api/ai/ryzenai?text=introduce your self">Zexxa AI</a></li>
-							<li><a href="/api/ai/bard?text=hello bard">Google Bard AI</a></li>
-							<li><a href="/api/ai/openai?text=hello ai">ChatGPT AI</a></li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-download"></span><span class="mtext">Downloader Feature</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="/api/dowloader/fbdown?url=https://www.facebook.com/GamingbyRTX/videos/288365840673219/">Facebook</a>
-							</li>
-							<li><a href="/api/dowloader/twitter?url=">Twitter</a>
-							</li>
-							<li><a href="/api/dowloader/tikok?url=https://vt.tiktok.com/ZSND4xYqR/">Tiktok Video/Audio</a>
-							</li>
-							<li><a href="/api/dowloader/tikok?url=https://vt.tiktok.com/ZSND4xYqR/">Tiktok Slide</a>
-							</li>
-							<li><a href="/api/dowloader/igdowloader?url=https://www.instagram.com/reel/Cy0WlFNPZ7O/?igshid=MzRlODBiNWFlZA==">Instagram</a>
-							</li>
-							<li><a href="/api/dowloader/yt?url=https://www.youtube.com/watch?v=JdSpuTi9d8A">Youtube Video/Audio</a>
-							</li>
-							<li><a href="/api/dowloader/soundcloud?url=https://m.soundcloud.com/eminemofficial/lose-yourself">Soundcloud</a>
-							</li>
-							<!--<li><a href="/api/downloader/xnxxdl?url=">XNXX</a>
-							</li>
-							<li><a href="/api/downloader/xvideosdl?url=">XVIDEOS</a>
-							</li>-->
-							<li><a href="/api/downloader/gdrivedl?url=">Google Drive</a>
-							</li>
-							<li><a href="/api/downloader/mediafire?url=https://www.mediafire.com/file/ksitryasyswn2ms/Script%20Skin%20Ling%20Dragon%20Tamer%20%20To_M_World.zip/file">Mediafire</a>
-							</li>
-							<li><a href="/api/downloader/sfilemobi?url=https://sfile.mobi/2wfPguhYnOy">Sfile Mobi</a>
-							</li>
-							<li><a href="/api/downloader/telesticker?url=">Telegram Sticker</a>
-							</li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-edit"></span><span class="mtext"> Textpro Maker </span>
-						</a>
-						<ul class="submenu">
-							<li><a href="/api/textpro/pencil?text=ZexxaDev">Pencil</a>
-							</li>
-							<li><a href="/api/textpro/glitch?text=ZexxaDev">Glitch</a>
-							</li>
-							<li><a href="/api/textpro/blackpink?text=ZexxaDev">Blackpink</a>
-							</li>
-							<li><a href="/api/textpro/berry?text=ZexxaDev">Berry</a>
-							</li>
-							<li><a href="/api/textpro/neon?text=ZexxaDev">Neon</a>
-							</li>
-							<li><a href="/api/textpro/logobear?text=ZexxaDev">Logo Bear</a>
-							</li>
-							<li><a href="/api/textpro/3dchristmas?text=ZexxaDev">3D Christmas</a>
-							</li>
-							<li><a href="/api/textpro/thunder?text=ZexxaDev">Thunder</a>
-							</li>
-							<li><a href="/api/textpro/3dboxtext?text=ZexxaDev">3D Box Text</a>
-							</li>
-							<li><a href="/api/textpro/glitch2?text=ZexxaDev&text2=ID">Glitch 2</a>
-							</li>
-							<li><a href="/api/textpro/glitchtiktok?text=ZexxaDev&text2=ID">Glitch Tiktok</a>
-							</li>
-							<li><a href="/api/textpro/video-game-classic?text=ZexxaDev&text2=ID">Video Game</a>
-							</li>
-							<li><a href="/api/textpro/marvel-studios?text=ZexxaDev&text2=ID">Marvel Studios</a>
-							</li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-paint-brush"></span><span class="mtext">Photooxy</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="/api/photooxy/flaming?text=ZexxaDev">Flaming</a>
-							</li>
-							<li><a href="/api/photooxy/shadow-sky?text=ZexxaDev">Shadow Sky</a>
-							</li>
-							<li><a href="/api/photooxy/metallic?text=ZexxaDev">Metallic</a>
-							</li>
-							<li><a href="/api/photooxy/naruto?text=ZexxaDev">Naruto</a>
-							</li>
-							<li><a href="/api/photooxy/pubg?text=ZexxaDev&text2=ID">PUBG</a>
-							</li>
-							<li><a href="/api/photooxy/under-grass?text=ZexxaDev">Under Grass</a>
-							</li>
-							<li><a href="/api/photooxy/harry-potter?text=ZexxaDev">Harry Potter</a>
-							</li>
-							<li><a href="/api/photooxy/flower-typography?text=ZexxaDev">Flower Typography</a>
-							</li>
-							<li><a href="/api/photooxy/picture-of-love?text=ZexxaDev">Picture Of Love</a>
-							</li>
-							<li><a href="/api/photooxy/coffee-cup?text=ZexxaDev">Coffe Cup</a>
-							</li>
-							<li><a href="/api/photooxy/butterfly?text=ZexxaDev">Butterfly</a>
-							</li>
-							<li><a href="/api/photooxy/night-sky?text=ZexxaDev">Night Sky</a>
-							</li>
-							<li><a href="/api/photooxy/carved-wood?text=ZexxaDev">Carved Wood</a>
-							</li>
-							<li><a href="/api/photooxy/illuminated-metallic?text=ZexxaDev">Illuminated Metallic</a>
-							</li>
-							<li><a href="/api/photooxy/sweet-candy?text=ZexxaDev">Sweet Candy</a>
-							</li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-sound"></span><span class="mtext">Text To Sound</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="/api/soundoftext?text=hello&lang=">Text To Speech</a>
-							</li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-search"></span><span class="mtext">Search Feature</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="/api/search/linkgroupwa?text=editor">Group Whatsapp</a>
-							</li>
-							<!--<li><a href="/api/search/xnxxsearch?query=mom">XNXX Video</a>
-							</li>
-							<li><a href="/api/search/xvideossearch?query=mom">XVIDEOS Video</a>
-							</li>-->
-							<li><a href="/api/search/lyrics?query=before you go">Song Lyrics</a>
-							</li>
-							<li><a href="/api/search/wallpaper?query=Anime">Wallpaper</a>
-							</li>
-							<li><a href="/api/search/scsearch?query=without me">Soundcloud</a>
-							</li>
-							<li><a href="/api/search/npmsearch?query=api-dylux">Node Package Manager</a>
-							</li>
-							<!--<li><a href="/api/search/phsearch?query=mom">Pornhub</a>
-							</li>-->
-							<li><a href="/api/search/pinterest?text=Light Yagami">Pinterest</a>
-							</li>
-							<li><a href="/api/search/ringtone?text=Samsung">Ringtone</a>
-							</li>
-							<li><a href="/api/search/wikimedia?text=Banjar">Wikimedia</a>
-							</li>
-							<li><a href="/api/search/wallpaper2?text=anime">Wallpaper 2</a>
-							</li>
-							<li><a href="/api/search/google?text=Light Yagami">Google</a>
-							</li>
-							<li><a href="/api/search/ytplay?text=without me">YT Play</a>
-							</li>
-							<li><a href="/api/search/sticker?text=Dino">Stickerpack</a>
-							</li>
-							<li><a href="/api/search/sfilemobi?text=opok">Sfile Mobi</a>
-							</li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-image-1"></span><span class="mtext">Random Images</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="/api/random/dinokuning">Yellow Dino</a>
-							</li>
-							<li><a href="/api/random/patrick">Patrick Star</a>
-							</li>
-							<li><a href="/api/random/amongus">Among Us</a>
-							</li>
-							<li><a href="/api/random/animestick">Anime</a>
-							</li>
-							<li><a href="/api/random/animegif">Anime GIF</a>
-							</li>
-							<li><a href="/api/random/dadu">Dice</a>
-							</li>
-							<li><a href="/api/random/doge">Doge</a>
-							</li>
-							<li><a href="/api/random/kawanspongebob">Spongebob Friends</a>
-							</li>
-							<li><a href="/api/random/manusialidi">Human Thick</a>
-							</li>
-							<li><a href="/api/random/mukalu">Mukalu</a>
-							</li>
-							<li><a href="/api/random/paimon">Paimon</a>
-							
-							</li>
-							<li><a href="/api/random/patrickgif">Patrick GIF</a>
-							</li>
-							<li><a href="/api/random/random">Random</a>
-							</li>
-							<li><a href="/api/random/rabbit">Rabbit</a>
-							</li>
-							<li><a href="/api/random/spongebob">Spongebob</a>
-							</li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-copy"></span><span class="mtext">Extra Feature</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="/api/tools/remini?url=">Remini</a></li>
-							<li><a href="/api/tools/toanime?url=">Turn to Anime</a></li>
-							<li><a href="/api/tools/tinyurl?url=">TinyURL</a></li>
-							<li><a href="/api/tools/decode?text=">Decode Base64</a></li>
-							<li><a href="/api/tools/encode?text=">Encode Base64</a></li>
-							<li><a href="/api/tools/gitstalk?user=">Github Stalk</a></li>
-							<li><a href="/api/tools/ssweb?url=">Screenshoot Web</a></li>
-							<li><a href="/api/tools/removebg?url=">Remove Background</a></li>
-							<li><a href="/api/tools/airline">Airlines Weather</a></li>
-							<li><a href="/api/tools/textstyle?text=">Text Style</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="mobile-menu-overlay"></div>
+                    <div class="example">
+                        <h4 class="example-title">Example Request</h4>
+                        <div class="code-block">
+                            <pre><code>GET /api/ai/ryzenai?text=Hello, who are you?</code></pre>
+                        </div>
+                    </div>
 
-	<div class="main-container">
-		<div class="pd-ltr-20">
-			<div class="card-box pd-20 height-100-p mb-30">
-				<div class="row align-items-center">
-					<div class="col-md-4">
-						<img src="vendors/images/banner-img.png" alt="">
-					</div>
-					<div class="col-md-8">
-						<h4 class="font-20 weight-500 mb-10 text-capitalize">
-							Welcome back <div class="weight-600 font-30 text-blue">To Ryzen API</div>
-						</h4>
-						<p class="font-18 max-width-600">Ryzen API is a free and unpaid restful API service provider, you don't need to register or provide personal data, please use it wisely!.</p>
-					</div>
-				</div>
-			</div>
-			<!--<div class="row">
-				<div class="col-md-2 mb-30">
-					<div class="card-box height-100-p
-					width-100-p widget-style1">
-						<div class="d-flex flex-wrap align-items-center">
-<div class="progress-data">
-								<div id="chart"></div>
-							</div>
-							<div class="widget-data">
-								<div class="h4 mb-0">IP ADDRESS</div>
-								<div class="weight-600 font-14" id="ip">WAIT
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-			</div>
-			<!--<div class="row">
-				<div class="col-xl-8 mb-30">
-					<div class="card-box height-100-p pd-20">
-						<h2 class="h4 mb-20">Activity</h2>
-						<div id="chart5"></div>
-					</div>
-				</div>
-				<div class="col-xl-4 mb-30">
-					<div class="card-box height-100-p pd-20">
-						<h2 class="h4 mb-20">Lead Target</h2>
-						<div id="chart6"></div>
-					</div>
-				</div>
-			</div>-->
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<div class="footer-wrap pd-20 mb-20 card-box">
-				Copyright Reserved © 2023-2024 By <a href="https://github.com/ShirokamiRyzen/" target="_blank">Shirokami Ryzen</a>
-			</div>
-		</div>
-	</div>
-	<!-- js -->
-	<script src="vendors/scripts/core.js"></script>
-    <script src="vendors/scripts/ipanda.js"></script>
-	<script src="vendors/scripts/script.min.js"></script>
-	<script src="vendors/scripts/process.js"></script>
-	<script src="vendors/scripts/layout-settings.js"></script>
-	<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-	<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-	<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-	<script src="vendors/scripts/dashboard.js"></script>
-	<script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+                    <div class="example">
+                        <h4 class="example-title">Example Response</h4>
+                        <div class="code-block">
+                            <pre><code>{
+  "status": true,
+  "query": "Hello, who are you?",
+  "response": "I am Zexxa, your AI assistant..."
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Downloader Section -->
+            <section id="downloader" class="api-section">
+                <h2 class="api-section-title">📥 Media Downloader</h2>
+                <p class="api-section-desc">Download audio and media files from various sources</p>
+
+                <!-- Blue Archive Voice -->
+                <div class="api-subsection">
+                    <h3 class="api-subsection-title">Blue Archive Voice</h3>
+
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/downloader/bluearchive-voice</span>
+                    </div>
+
+                    <div class="params">
+                        <h4 class="params-title">Parameters</h4>
+                        <div class="param">
+                            <div class="param-header">
+                                <span class="param-name">character</span>
+                                <span class="param-optional">optional</span>
+                            </div>
+                            <p class="param-desc">Character name (e.g., Hina, Aru, Yuuka, Shiroko). If not specified,
+                                returns random character voice.</p>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Request</h4>
+                        <div class="code-block">
+                            <pre><code>GET /api/downloader/bluearchive-voice?character=Hina</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Response</h4>
+                        <div class="code-block">
+                            <pre><code>{
+  "status": true,
+  "query": "Hina",
+  "title": "Hina_BattleVoice_Victory_01.ogg",
+  "audio_url": "https://static.wikitide.net/...",
+  "character": "Hina",
+  "total_found": 47
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MyInstants -->
+                <div class="api-subsection">
+                    <h3 class="api-subsection-title">Sound Effects (MyInstants)</h3>
+
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/downloader/myinstants</span>
+                    </div>
+
+                    <div class="params">
+                        <h4 class="params-title">Parameters</h4>
+                        <div class="param">
+                            <div class="param-header">
+                                <span class="param-name">query</span>
+                                <span class="param-required">required</span>
+                            </div>
+                            <p class="param-desc">Search term for sound effects (e.g., "bruh", "wow", "victory")</p>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Request</h4>
+                        <div class="code-block">
+                            <pre><code>GET /api/downloader/myinstants?query=bruh</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Response</h4>
+                        <div class="code-block">
+                            <pre><code>{
+  "status": true,
+  "query": "bruh",
+  "data": [
+    {
+      "id": "bruh-sound-12345",
+      "title": "Bruh Sound Effect",
+      "url": "https://www.myinstants.com/instant/bruh/",
+      "mp3": "https://www.myinstants.com/media/sounds/bruh.mp3"
+    }
+  ],
+  "total_found": 15
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Search Section -->
+            <section id="search" class="api-section">
+                <h2 class="api-section-title">🔍 Search</h2>
+                <p class="api-section-desc">Search for images and content from various platforms</p>
+
+                <div class="api-subsection">
+                    <h3 class="api-subsection-title">Pinterest Search</h3>
+
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/search/pinterest</span>
+                    </div>
+
+                    <div class="params">
+                        <h4 class="params-title">Parameters</h4>
+                        <div class="param">
+                            <div class="param-header">
+                                <span class="param-name">text</span>
+                                <span class="param-required">required</span>
+                            </div>
+                            <p class="param-desc">Search query for Pinterest images</p>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Request</h4>
+                        <div class="code-block">
+                            <pre><code>GET /api/search/pinterest?text=anime wallpaper</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Response</h4>
+                        <div class="code-block">
+                            <pre><code>{
+  "status": true,
+  "query": "anime wallpaper",
+  "data": [
+    {
+      "title": "Anime Wallpaper HD",
+      "image": "https://i.pinimg.com/...",
+      "url": "https://pinterest.com/pin/..."
+    }
+  ]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Random Section -->
+            <section id="random" class="api-section">
+                <h2 class="api-section-title">🎲 Random Images</h2>
+                <p class="api-section-desc">Get random images from various categories</p>
+
+                <div class="params">
+                    <h4 class="params-title">Available Endpoints</h4>
+
+                    <div class="param">
+                        <div class="param-header">
+                            <span class="param-name">/api/random/animestick</span>
+                        </div>
+                        <p class="param-desc">Random anime sticker images</p>
+                    </div>
+
+                    <div class="param">
+                        <div class="param-header">
+                            <span class="param-name">/api/random/animegif</span>
+                        </div>
+                        <p class="param-desc">Random anime GIF animations</p>
+                    </div>
+
+                    <div class="param">
+                        <div class="param-header">
+                            <span class="param-name">/api/random/kawanspongebob</span>
+                        </div>
+                        <p class="param-desc">Random SpongeBob friends images</p>
+                    </div>
+
+                    <div class="param">
+                        <div class="param-header">
+                            <span class="param-name">/api/random/paimon</span>
+                        </div>
+                        <p class="param-desc">Random Paimon (Genshin Impact) images</p>
+                    </div>
+
+                    <div class="param">
+                        <div class="param-header">
+                            <span class="param-name">/api/random/spongebob</span>
+                        </div>
+                        <p class="param-desc">Random SpongeBob images</p>
+                    </div>
+                </div>
+
+                <div class="example">
+                    <h4 class="example-title">Example Request</h4>
+                    <div class="code-block">
+                        <pre><code>GET /api/random/animestick</code></pre>
+                    </div>
+                </div>
+
+                <div class="example">
+                    <h4 class="example-title">Example Response</h4>
+                    <div class="code-block">
+                        <pre><code>{
+  "status": true,
+  "image": "https://example.com/anime-sticker.png"
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Text-to-Speech Section -->
+            <section id="tts" class="api-section">
+                <h2 class="api-section-title">🗣️ Text-to-Speech</h2>
+                <p class="api-section-desc">Convert text to speech audio in multiple languages</p>
+
+                <div class="api-subsection">
+                    <h3 class="api-subsection-title">Sound of Text</h3>
+
+                    <div class="endpoint">
+                        <span class="method">GET</span>
+                        <span class="path">/api/soundoftext</span>
+                    </div>
+
+                    <div class="params">
+                        <h4 class="params-title">Parameters</h4>
+
+                        <div class="param">
+                            <div class="param-header">
+                                <span class="param-name">text</span>
+                                <span class="param-required">required</span>
+                            </div>
+                            <p class="param-desc">Text to convert to speech</p>
+                        </div>
+
+                        <div class="param">
+                            <div class="param-header">
+                                <span class="param-name">lang</span>
+                                <span class="param-optional">optional</span>
+                            </div>
+                            <p class="param-desc">Language code (e.g., "en-US", "id-ID", "ja-JP"). Default: "en-US"</p>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Request</h4>
+                        <div class="code-block">
+                            <pre><code>GET /api/soundoftext?text=Hello World&lang=en-US</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <h4 class="example-title">Example Response</h4>
+                        <div class="code-block">
+                            <pre><code>{
+  "status": true,
+  "text": "Hello World",
+  "lang": "en-US",
+  "audio_url": "https://example.com/audio.mp3"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="section text-center" style="background: var(--dark-bg); border-top: 1px solid var(--dark-border);">
+        <div class="container">
+            <h3 class="mb-4">⚡ Nanan API</h3>
+            <p class="mb-6">Modern API services for modern applications</p>
+            <p style="color: var(--gray-500); font-size: var(--text-sm);">
+                © 2025 Nanan API. Built with ❤️ for developers worldwide.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        // Initialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        // Smooth scroll for sidebar links
+        document.querySelectorAll('.sidebar-link, a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Update active state
+                    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Highlight active section on scroll
+        const sections = document.querySelectorAll('.api-section');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '-100px 0px -66% 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    sidebarLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+    </script>
 </body>
+
 </html>
