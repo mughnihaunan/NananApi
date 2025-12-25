@@ -167,4 +167,4 @@ For questions or support, please open an issue on GitHub.
 
 ---
 
-**Built with ❤️ by Nanan Team**
+**Built with ❤️ by Nanan**
