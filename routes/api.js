@@ -17,7 +17,7 @@ const { shortText } = require("limit-text-js")
 const TinyURL = require('tinyurl');
 const emoji = require("emoji-api");
 const isUrl = require("is-url")
-const { ytMp4, ytMp3 } = require(__path + '/lib/y2mate')
+const { ytMp4, ytMp3, streamYouTube } = require(__path + '/lib/y2mate')
 const BitlyClient = require('bitly').BitlyClient
 const { fetchJson, getBuffer } = require(__path + '/lib/myfunc')
 const isNumber = require('is-number');
@@ -476,7 +476,8 @@ router.get('/downloader/youtube-mp4', async (req, res, next) => {
 		})
 	}
 
-	ytMp4(url).then(data => {
+	try {
+		const data = await ytMp4(url);
 		if (!data) {
 			return res.json({
 				status: false,
@@ -489,16 +490,15 @@ router.get('/downloader/youtube-mp4', async (req, res, next) => {
 			creator: `${creator}`,
 			result: data
 		})
-	})
-		.catch(e => {
-			console.error('YouTube MP4 Error:', e)
-			res.json({
-				status: false,
-				creator: `${creator}`,
-				message: "Failed to download YouTube video",
-				error: e.message
-			})
+	} catch (e) {
+		console.error('YouTube MP4 Error:', e)
+		res.json({
+			status: false,
+			creator: `${creator}`,
+			message: "Failed to download YouTube video",
+			error: e.message
 		})
+	}
 })
 
 // YouTube MP3 Downloader
@@ -519,7 +519,8 @@ router.get('/downloader/youtube-mp3', async (req, res, next) => {
 		})
 	}
 
-	ytMp3(url).then(data => {
+	try {
+		const data = await ytMp3(url);
 		if (!data) {
 			return res.json({
 				status: false,
@@ -532,16 +533,44 @@ router.get('/downloader/youtube-mp3', async (req, res, next) => {
 			creator: `${creator}`,
 			result: data
 		})
-	})
-		.catch(e => {
-			console.error('YouTube MP3 Error:', e)
-			res.json({
-				status: false,
-				creator: `${creator}`,
-				message: "Failed to download YouTube audio",
-				error: e.message
-			})
+	} catch (e) {
+		console.error('YouTube MP3 Error:', e)
+		res.json({
+			status: false,
+			creator: `${creator}`,
+			message: "Failed to download YouTube audio",
+			error: e.message
 		})
+	}
+})
+
+// YouTube Stream Endpoint (for actual download)
+router.get('/downloader/youtube-stream', async (req, res, next) => {
+	const { videoId, quality, type } = req.query;
+
+	if (!videoId || !quality) {
+		return res.status(400).json({
+			status: false,
+			creator: `${creator}`,
+			message: "Missing videoId or quality parameter"
+		});
+	}
+
+	try {
+		const streamData = await streamYouTube(videoId, quality, type || 'mp4');
+
+		// Redirect to direct download URL
+		res.redirect(streamData.downloadUrl);
+
+	} catch (error) {
+		console.error('YouTube Stream Error:', error);
+		res.status(500).json({
+			status: false,
+			creator: `${creator}`,
+			message: "Failed to get download URL",
+			error: error.message
+		});
+	}
 })
 
 module.exports = router
